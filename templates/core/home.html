@@ -1,0 +1,359 @@
+{% extends 'base.html' %}
+
+{% block title %}Imobiliária Premium - Encontre o imóvel dos seus sonhos{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">
+                    Encontre o imóvel 
+                    <span class="text-premium">dos seus sonhos</span>
+                </h1>
+                <p class="lead mb-4 opacity-90">
+                    Casas, apartamentos e salas comerciais de alto padrão para venda, aluguel e temporada. 
+                    Qualidade e sofisticação em cada detalhe.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'core:lista_imoveis' %}" class="btn btn-primary btn-lg smooth-transition">
+                        <i class="fas fa-search me-2"></i>Explorar Imóveis
+                    </a>
+                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de atendimento premium." 
+                       class="btn btn-outline-light btn-lg smooth-transition" target="_blank">
+                        <i class="fab fa-whatsapp me-2"></i>Atendimento VIP
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Busca Principal -->
+                <div class="card border-premium shadow-lg">
+                    <div class="card-header" style="background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);">
+                        <h5 class="mb-0 text-dark fw-bold">
+                            <i class="fas fa-gem me-2"></i>Busca Premium
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="get" action="{% url 'core:lista_imoveis' %}">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-premium">Onde você quer morar?</label>
+                                <input type="text" class="form-control form-control-lg border-premium" name="busca"
+                                    placeholder="Digite o bairro, cidade ou endereço" autocomplete="off">
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <select class="form-select border-premium" name="tipo">
+                                        <option value="">Tipo do imóvel</option>
+                                        {% for tipo_codigo, tipo_nome in tipos %}
+                                        <option value="{{ tipo_codigo }}">{{ tipo_nome }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select border-premium" name="cidade">
+                                        <option value="">Cidade</option>
+                                        {% for cidade in cidades %}
+                                        <option value="{{ cidade }}">{{ cidade }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100 smooth-transition">
+                                <i class="fas fa-search me-2"></i>Buscar Imóveis Premium
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filtros Rápidos Premium -->
+<section class="py-5 bg-light-premium">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-premium">
+                <i class="fas fa-star me-2"></i>Categorias Premium
+            </h2>
+            <p class="text-secondary-premium">Encontre exatamente o que procura</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-6">
+                <a href="{% url 'core:lista_imoveis' %}?finalidade=venda" class="text-decoration-none">
+                    <div class="card text-center h-100 border-0 shadow-lg card-imovel">
+                        <div class="card-body py-4">
+                            <div class="mb-3" style="color: var(--dourado-metalico);">
+                                <i class="fas fa-tag fs-1"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Comprar</h5>
+                            <p class="card-text text-secondary-premium">Imóveis à venda</p>
+                            <span class="badge badge-premium">Premium</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-6">
+                <a href="{% url 'core:lista_imoveis' %}?finalidade=aluguel" class="text-decoration-none">
+                    <div class="card text-center h-100 border-0 shadow-lg card-imovel">
+                        <div class="card-body py-4">
+                            <div class="mb-3" style="color: var(--azul-petroleo);">
+                                <i class="fas fa-key fs-1"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Alugar</h5>
+                            <p class="card-text text-secondary-premium">Imóveis para aluguel</p>
+                            <span class="badge" style="background-color: var(--azul-petroleo); color: white;">Qualidade</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-6">
+                <a href="{% url 'core:lista_imoveis' %}?finalidade=temporada" class="text-decoration-none">
+                    <div class="card text-center h-100 border-0 shadow-lg card-imovel">
+                        <div class="card-body py-4">
+                            <div class="mb-3" style="color: var(--dourado-claro);">
+                                <i class="fas fa-calendar-alt fs-1"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Temporada</h5>
+                            <p class="card-text text-secondary-premium">Aluguel por temporada</p>
+                            <span class="badge" style="background-color: var(--dourado-claro); color: var(--preto-profundo);">Exclusivo</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-6">
+                <a href="{% url 'core:lista_imoveis' %}" class="text-decoration-none">
+                    <div class="card text-center h-100 border-0 shadow-lg card-imovel">
+                        <div class="card-body py-4">
+                            <div class="mb-3" style="color: var(--preto-profundo);">
+                                <i class="fas fa-gem fs-1"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">Ver Todos</h5>
+                            <p class="card-text text-secondary-premium">Explorar catálogo</p>
+                            <span class="badge" style="background-color: var(--preto-profundo); color: var(--dourado-claro);">Completo</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Imóveis em Destaque -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">
+                <i class="fas fa-crown me-2 text-premium"></i>Imóveis em Destaque
+            </h2>
+            <p class="text-secondary-premium">Confira nossa seleção exclusiva de propriedades premium</p>
+        </div>
+
+        {% if imoveis_destaque %}
+        <div class="row g-4">
+            {% for imovel in imoveis_destaque %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card card-imovel h-100 border-0 shadow-lg">
+                    <div class="position-relative overflow-hidden">
+                        {% if imovel.foto_capa %}
+                        <img src="{{ imovel.foto_capa.imagem.url }}" class="card-img-top foto-capa"
+                            alt="{{ imovel.titulo }}">
+                        {% else %}
+                        <div class="foto-capa bg-light-premium d-flex align-items-center justify-content-center">
+                            <i class="fas fa-image fs-1 text-secondary-premium"></i>
+                        </div>
+                        {% endif %}
+
+                        <!-- Badges de finalidade -->
+                        {% for preco in imovel.precos.all %}
+                        {% if forloop.first %}
+                            {% if preco.finalidade == 'venda' %}
+                            <span class="badge-finalidade">
+                                <i class="fas fa-tag me-1"></i>Venda
+                            </span>
+                            {% elif preco.finalidade == 'aluguel' %}
+                            <span class="badge-finalidade">
+                                <i class="fas fa-key me-1"></i>Aluguel
+                            </span>
+                            {% elif preco.finalidade == 'temporada' %}
+                            <span class="badge-finalidade">
+                                <i class="fas fa-calendar-alt me-1"></i>Temporada
+                            </span>
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if imovel.recem_publicado %}
+                        <span class="badge" style="position: absolute; top: 15px; right: 15px; background-color: #dc3545; color: white; font-weight: bold; padding: 6px 12px; border-radius: 20px;">
+                            <i class="fas fa-star me-1"></i>Novo
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">{{ imovel.titulo|truncatechars:50 }}</h5>
+
+                        <!-- Preços -->
+                        <div class="mb-3">
+                            {% for preco in imovel.precos.all %}
+                            <div class="preco-destaque">
+                                {% if preco.finalidade == 'temporada' %}
+                                R$ {{ preco.valor|floatformat:0 }}<small>/diária</small>
+                                {% else %}
+                                R$ {{ preco.valor|floatformat:0 }}
+                                {% endif %}
+                                <br><small class="text-secondary-premium">({{ preco.get_finalidade_display }})</small>
+                            </div>
+                            {% empty %}
+                            <div class="text-secondary-premium">Consulte valores</div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Características -->
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            {% if imovel.area_util %}
+                            <small class="badge badge-light">
+                                <i class="fas fa-expand-arrows-alt me-1"></i>{{ imovel.area_util|floatformat:0 }}m²
+                            </small>
+                            {% endif %}
+                            
+                            {% if imovel.quartos %}
+                            <small class="badge badge-light">
+                                <i class="fas fa-bed me-1"></i>{{ imovel.quartos }} quarto{{ imovel.quartos|pluralize }}
+                            </small>
+                            {% endif %}
+                            
+                            {% if imovel.banheiros %}
+                            <small class="badge badge-light">
+                                <i class="fas fa-bath me-1"></i>{{ imovel.banheiros }} banheiro{{ imovel.banheiros|pluralize }}
+                            </small>
+                            {% endif %}
+                            
+                            {% if imovel.vagas_garagem %}
+                            <small class="badge badge-light">
+                                <i class="fas fa-car me-1"></i>{{ imovel.vagas_garagem }} vaga{{ imovel.vagas_garagem|pluralize }}
+                            </small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Localização -->
+                        <p class="card-text text-secondary-premium mb-3">
+                            <i class="fas fa-map-marker-alt me-2 text-premium"></i>
+                            {{ imovel.bairro }}, {{ imovel.cidade }}
+                        </p>
+
+                        <!-- Badges extras -->
+                        <div class="d-flex flex-wrap gap-2 mb-4">
+                            {% if imovel.pet_friendly %}
+                            <small class="badge" style="background-color: var(--azul-petroleo); color: white;">
+                                <i class="fas fa-paw me-1"></i>Pet Friendly
+                            </small>
+                            {% endif %}
+                            {% if imovel.mobilia != 'vazio' %}
+                            <small class="badge badge-premium">
+                                <i class="fas fa-couch me-1"></i>{{ imovel.get_mobilia_display }}
+                            </small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'core:detalhe_imovel' imovel.pk %}" class="btn btn-outline-primary smooth-transition">
+                                <i class="fas fa-eye me-2"></i>Ver Detalhes
+                            </a>
+                            <a href="https://wa.me/5511999999999?text=Olá! Tenho interesse no imóvel: {{ imovel.titulo|urlencode }} - {{ imovel.endereco|urlencode }}"
+                                class="btn btn-whatsapp smooth-transition" target="_blank">
+                                <i class="fab fa-whatsapp me-2"></i>Contato Imediato
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{% url 'core:lista_imoveis' %}" class="btn btn-primary btn-lg smooth-transition">
+                <i class="fas fa-gem me-2"></i>Ver Todo Catálogo Premium
+            </a>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <div class="mb-4" style="color: var(--cinza-medio);">
+                <i class="fas fa-gem fs-1"></i>
+            </div>
+            <h4 class="text-secondary-premium">Em breve: Imóveis Premium</h4>
+            <p class="text-secondary-premium">Estamos preparando uma seleção exclusiva para você!</p>
+            <a href="https://wa.me/5511999999999?text=Quero ser avisado sobre os lançamentos premium!" 
+               class="btn btn-primary smooth-transition" target="_blank">
+                <i class="fab fa-whatsapp me-2"></i>Receber Novidades
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA Section Premium -->
+<section class="hero-section py-5">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-3">
+                    <i class="fas fa-concierge-bell me-2"></i>Atendimento Personalizado
+                </h2>
+                <p class="lead mb-4 opacity-90">
+                    Não encontrou o que procura? Nossa equipe especializada está pronta para encontrar 
+                    o imóvel perfeito que atenda às suas necessidades e supere suas expectativas.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de atendimento personalizado para encontrar um imóvel."
+                        class="btn btn-primary btn-lg smooth-transition" target="_blank">
+                        <i class="fab fa-whatsapp me-2"></i>Atendimento VIP
+                    </a>
+                    <a href="tel:+5511999999999" class="btn btn-outline-light btn-lg smooth-transition">
+                        <i class="fas fa-phone me-2"></i>(11) 99999-9999
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção de Diferenciais -->
+<section class="py-5 bg-light-premium">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-premium">Por que escolher a Premium?</h2>
+            <p class="text-secondary-premium">Excelência em cada detalhe</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="mb-3" style="color: var(--dourado-metalico);">
+                    <i class="fas fa-award fs-1"></i>
+                </div>
+                <h5 class="fw-bold">Qualidade Garantida</h5>
+                <p class="text-secondary-premium">Todos os imóveis passam por rigorosa seleção</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="mb-3" style="color: var(--azul-petroleo);">
+                    <i class="fas fa-users fs-1"></i>
+                </div>
+                <h5 class="fw-bold">Atendimento Especializado</h5>
+                <p class="text-secondary-premium">Equipe dedicada ao seu sucesso</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="mb-3" style="color: var(--dourado-claro);">
+                    <i class="fas fa-shield-alt fs-1"></i>
+                </div>
+                <h5 class="fw-bold">Segurança Total</h5>
+                <p class="text-secondary-premium">Transparência em todo o processo</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,642 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if total_imoveis %}
+        {{ total_imoveis }} Imóveis Premium Encontrados
+    {% else %}
+        Buscar Imóveis Premium
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .filtros-sidebar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 100px;
+        z-index: 10;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+    
+    @media (max-width: 991.98px) {
+        .filtros-sidebar {
+            position: static;
+        }
+    }
+    
+    .navbar {
+        z-index: 1030;
+    }
+
+    .filter-card {
+        background: linear-gradient(135deg, var(--branco-puro) 0%, var(--cinza-claro) 100%);
+        border: 2px solid var(--dourado-metalico);
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(200, 168, 102, 0.15);
+    }
+
+    .results-header {
+        background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%);
+        color: var(--branco-puro);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .filter-chip {
+        background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+        color: var(--preto-profundo);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin: 0.2rem;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .filter-chip:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(200, 168, 102, 0.3);
+    }
+
+    .filter-chip .remove-filter {
+        color: var(--preto-profundo);
+        text-decoration: none;
+        margin-left: 8px;
+        font-weight: bold;
+        opacity: 0.8;
+    }
+
+    .filter-chip .remove-filter:hover {
+        opacity: 1;
+    }
+
+    .imovel-card {
+        background: var(--branco-puro);
+        border: 1px solid rgba(200, 168, 102, 0.2);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .imovel-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        border-color: var(--dourado-metalico);
+    }
+
+    .price-highlight {
+        background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        font-size: 1.3rem;
+    }
+
+    .characteristic-badge {
+        background-color: rgba(200, 168, 102, 0.1);
+        color: var(--azul-petroleo);
+        border: 1px solid rgba(200, 168, 102, 0.3);
+        font-weight: 500;
+    }
+
+    .empty-state {
+        background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        border-radius: 16px;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .pagination-premium .page-link {
+        border: 2px solid var(--dourado-metalico);
+        color: var(--azul-petroleo);
+        font-weight: 600;
+        margin: 0 2px;
+        border-radius: 8px;
+    }
+
+    .pagination-premium .page-link:hover {
+        background-color: var(--dourado-metalico);
+        color: var(--preto-profundo);
+    }
+
+    .pagination-premium .page-item.active .page-link {
+        background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+        border-color: var(--dourado-claro);
+        color: var(--preto-profundo);
+    }
+
+    .mobile-filter-btn {
+        background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%);
+        border: none;
+        color: var(--branco-puro);
+        font-weight: 600;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+    }
+
+    .sort-control {
+        border: 2px solid var(--dourado-metalico);
+        border-radius: 8px;
+        background-color: var(--branco-puro);
+    }
+
+    .sort-control:focus {
+        border-color: var(--dourado-claro);
+        box-shadow: 0 0 0 0.2rem rgba(200, 168, 102, 0.25);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header da Página Premium -->
+<section class="py-4">
+    <div class="container">
+        <div class="results-header">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h2 mb-2 fw-bold">
+                        <i class="fas fa-gem me-3"></i>Catálogo Premium
+                    </h1>
+                    <p class="mb-0 opacity-90">
+                        <i class="fas fa-home me-2"></i>
+                        {{ total_imoveis }} imóvel{{ total_imoveis|pluralize:" exclusivo,is exclusivos" }} encontrado{{ total_imoveis|pluralize:",s" }}
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <!-- Botão filtros mobile -->
+                    <div class="d-md-none mt-3">
+                        <button class="mobile-filter-btn w-100 smooth-transition" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosMobile">
+                            <i class="fas fa-sliders-h me-2"></i>Filtros Avançados
+                        </button>
+                    </div>
+                    
+                    <!-- Ordenação desktop -->
+                    <form method="get" class="d-none d-md-block">
+                        {% for key, value in filtros_aplicados.items %}
+                            {% if key != 'ordenacao' and value %}
+                                {% if key == 'infraestrutura' %}
+                                    {% for infra_id in value %}
+                                        <input type="hidden" name="infraestrutura" value="{{ infra_id }}">
+                                    {% endfor %}
+                                {% else %}
+                                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <div class="input-group">
+                            <label class="input-group-text fw-bold" style="background-color: var(--dourado-metalico); color: var(--preto-profundo); border-color: var(--dourado-metalico);">
+                                <i class="fas fa-sort me-2"></i>Ordenar:
+                            </label>
+                            <select name="ordenacao" class="form-select sort-control" onchange="this.form.submit()">
+                                <option value="relevancia"{% if filtros_aplicados.ordenacao == "relevancia" %} selected{% endif %}>Mais Relevantes</option>
+                                <option value="mais_recentes"{% if filtros_aplicados.ordenacao == "mais_recentes" %} selected{% endif %}>Mais Recentes</option>
+                                <option value="preco_menor"{% if filtros_aplicados.ordenacao == "preco_menor" %} selected{% endif %}>Menor Preço</option>
+                                <option value="preco_maior"{% if filtros_aplicados.ordenacao == "preco_maior" %} selected{% endif %}>Maior Preço</option>
+                                <option value="maior_area"{% if filtros_aplicados.ordenacao == "maior_area" %} selected{% endif %}>Maior Área</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chips de filtros aplicados -->
+        {% if filtros_aplicados.busca or filtros_aplicados.finalidade or filtros_aplicados.tipo or filtros_aplicados.cidade %}
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                <span class="fw-bold text-premium me-2">
+                    <i class="fas fa-filter me-1"></i>Filtros ativos:
+                </span>
+                
+                {% if filtros_aplicados.busca %}
+                    <span class="filter-chip">
+                        <i class="fas fa-search me-1"></i>
+                        "{{ filtros_aplicados.busca }}"
+                        <a href="?{% for key, value in filtros_aplicados.items %}{% if key != 'busca' and value %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}" class="remove-filter">×</a>
+                    </span>
+                {% endif %}
+                
+                {% if filtros_aplicados.finalidade %}
+                    <span class="filter-chip">
+                        <i class="fas fa-tag me-1"></i>
+                        {{ filtros_aplicados.finalidade|capfirst }}
+                        <a href="?{% for key, value in filtros_aplicados.items %}{% if key != 'finalidade' and value %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}" class="remove-filter">×</a>
+                    </span>
+                {% endif %}
+                
+                {% if filtros_aplicados.tipo %}
+                    <span class="filter-chip">
+                        <i class="fas fa-home me-1"></i>
+                        {{ filtros_aplicados.tipo|capfirst }}
+                        <a href="?{% for key, value in filtros_aplicados.items %}{% if key != 'tipo' and value %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}" class="remove-filter">×</a>
+                    </span>
+                {% endif %}
+                
+                {% if filtros_aplicados.cidade %}
+                    <span class="filter-chip">
+                        <i class="fas fa-map-marker-alt me-1"></i>
+                        {{ filtros_aplicados.cidade }}
+                        <a href="?{% for key, value in filtros_aplicados.items %}{% if key != 'cidade' and value %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}" class="remove-filter">×</a>
+                    </span>
+                {% endif %}
+                
+                <a href="{% url 'core:lista_imoveis' %}" class="btn btn-sm btn-outline-danger smooth-transition">
+                    <i class="fas fa-times me-1"></i>Limpar tudo
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<div class="container my-4">
+    <div class="row">
+        <!-- Sidebar de Filtros (Desktop) -->
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="filtros-sidebar">
+                <div class="filter-card p-4">
+                    <h5 class="fw-bold mb-4 text-premium">
+                        <i class="fas fa-sliders-h me-2"></i>Filtros Avançados
+                    </h5>
+                    
+                    <form method="get">
+                        <!-- Busca -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">Buscar</label>
+                            <input type="text" class="form-control border-premium" name="busca" 
+                                   value="{{ filtros_aplicados.busca|default_if_none:'' }}" 
+                                   placeholder="Bairro, cidade, endereço...">
+                        </div>
+                        
+                        <!-- Finalidade -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">Finalidade</label>
+                            <select class="form-select border-premium" name="finalidade">
+                                <option value="">Todas</option>
+                                {% for codigo, nome in finalidades %}
+                                    <option value="{{ codigo }}"{% if filtros_aplicados.finalidade == codigo %} selected{% endif %}>{{ nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- Tipo -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">Tipo</label>
+                            <select class="form-select border-premium" name="tipo">
+                                <option value="">Todos</option>
+                                {% for codigo, nome in tipos %}
+                                    <option value="{{ codigo }}"{% if filtros_aplicados.tipo == codigo %} selected{% endif %}>{{ nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- Cidade -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">Cidade</label>
+                            <select class="form-select border-premium" name="cidade">
+                                <option value="">Todas</option>
+                                {% for cidade in cidades %}
+                                    <option value="{{ cidade }}"{% if filtros_aplicados.cidade == cidade %} selected{% endif %}>{{ cidade }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- Bairro -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">Bairro</label>
+                            <input type="text" class="form-control border-premium" name="bairro" 
+                                   value="{{ filtros_aplicados.bairro|default_if_none:'' }}" 
+                                   placeholder="Digite o bairro">
+                        </div>
+                        
+                        <!-- Preço -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">
+                                <i class="fas fa-dollar-sign me-1"></i>Preço (R$)
+                            </label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="number" class="form-control border-premium" name="preco_min" 
+                                           value="{{ filtros_aplicados.preco_min|default_if_none:'' }}" 
+                                           placeholder="Mínimo" min="0">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" class="form-control border-premium" name="preco_max" 
+                                           value="{{ filtros_aplicados.preco_max|default_if_none:'' }}" 
+                                           placeholder="Máximo" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Características -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold text-premium">Quartos (mín)</label>
+                                <select class="form-select border-premium" name="quartos">
+                                    <option value="">Qualquer</option>
+                                    <option value="1"{% if filtros_aplicados.quartos == "1" %} selected{% endif %}>1+</option>
+                                    <option value="2"{% if filtros_aplicados.quartos == "2" %} selected{% endif %}>2+</option>
+                                    <option value="3"{% if filtros_aplicados.quartos == "3" %} selected{% endif %}>3+</option>
+                                    <option value="4"{% if filtros_aplicados.quartos == "4" %} selected{% endif %}>4+</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-6">
+                                <label class="form-label fw-bold text-premium">Banheiros</label>
+                                <select class="form-select border-premium" name="banheiros">
+                                    <option value="">Qualquer</option>
+                                    <option value="1"{% if filtros_aplicados.banheiros == "1" %} selected{% endif %}>1+</option>
+                                    <option value="2"{% if filtros_aplicados.banheiros == "2" %} selected{% endif %}>2+</option>
+                                    <option value="3"{% if filtros_aplicados.banheiros == "3" %} selected{% endif %}>3+</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-6">
+                                <label class="form-label fw-bold text-premium">Vagas</label>
+                                <select class="form-select border-premium" name="vagas">
+                                    <option value="">Qualquer</option>
+                                    <option value="1"{% if filtros_aplicados.vagas == "1" %} selected{% endif %}>1+</option>
+                                    <option value="2"{% if filtros_aplicados.vagas == "2" %} selected{% endif %}>2+</option>
+                                    <option value="3"{% if filtros_aplicados.vagas == "3" %} selected{% endif %}>3+</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Área e Mobília -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-6">
+                                <label class="form-label fw-bold text-premium">Área mín. (m²)</label>
+                                <input type="number" class="form-control border-premium" name="area_min" 
+                                       value="{{ filtros_aplicados.area_min|default_if_none:'' }}" 
+                                       placeholder="Ex: 50" min="0">
+                            </div>
+                            
+                            <div class="col-6">
+                                <label class="form-label fw-bold text-premium">Mobília</label>
+                                <select class="form-select border-premium" name="mobilia">
+                                    <option value="">Qualquer</option>
+                                    {% for codigo, nome in mobilias %}
+                                        <option value="{{ codigo }}"{% if filtros_aplicados.mobilia == codigo %} selected{% endif %}>{{ nome }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Checkboxes Premium -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-premium">Características Especiais</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="pet_friendly" value="true"{% if filtros_aplicados.pet_friendly == "true" %} checked{% endif %}>
+                                <label class="form-check-label">
+                                    <i class="fas fa-paw me-1 text-premium"></i>Pet Friendly
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="financiamento" value="true"{% if filtros_aplicados.financiamento == "true" %} checked{% endif %}>
+                                <label class="form-check-label">
+                                    <i class="fas fa-university me-1 text-premium"></i>Aceita Financiamento
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="com_fotos" value="true"{% if filtros_aplicados.com_fotos == "true" %} checked{% endif %}>
+                                <label class="form-check-label">
+                                    <i class="fas fa-camera me-1 text-premium"></i>Somente com Fotos
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary smooth-transition">
+                                <i class="fas fa-search me-2"></i>Aplicar Filtros
+                            </button>
+                            <a href="{% url 'core:lista_imoveis' %}" class="btn btn-outline-secondary smooth-transition">
+                                <i class="fas fa-refresh me-2"></i>Limpar Filtros
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filtros Mobile (Collapse) -->
+        <div class="col-12 d-lg-none">
+            <div class="collapse mb-4" id="filtrosMobile">
+                <div class="filter-card p-3">
+                    <form method="get">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <input type="text" class="form-control border-premium" name="busca" 
+                                       value="{{ filtros_aplicados.busca|default_if_none:'' }}" 
+                                       placeholder="Buscar por bairro, cidade...">
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select border-premium" name="finalidade">
+                                    <option value="">Finalidade</option>
+                                    {% for codigo, nome in finalidades %}
+                                        <option value="{{ codigo }}"{% if filtros_aplicados.finalidade == codigo %} selected{% endif %}>{{ nome }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select border-premium" name="tipo">
+                                    <option value="">Tipo</option>
+                                    {% for codigo, nome in tipos %}
+                                        <option value="{{ codigo }}"{% if filtros_aplicados.tipo == codigo %} selected{% endif %}>{{ nome }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" class="form-control border-premium" name="preco_min" 
+                                       value="{{ filtros_aplicados.preco_min|default_if_none:'' }}" 
+                                       placeholder="Preço mín.">
+                            </div>
+                            <div class="col-6">
+                                <input type="number" class="form-control border-premium" name="preco_max" 
+                                       value="{{ filtros_aplicados.preco_max|default_if_none:'' }}" 
+                                       placeholder="Preço máx.">
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100 smooth-transition">
+                                    <i class="fas fa-search me-2"></i>Aplicar Filtros
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lista de Imóveis Premium -->
+        <div class="col-lg-9">
+            {% if page_obj %}
+                <div class="row g-4">
+                    {% for imovel in page_obj %}
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card imovel-card h-100">
+                            <div class="position-relative overflow-hidden">
+                                {% if imovel.foto_capa %}
+                                    <img src="{{ imovel.foto_capa.imagem.url }}" 
+                                         class="card-img-top foto-capa" 
+                                         alt="{{ imovel.titulo }}">
+                                {% else %}
+                                    <div class="foto-capa bg-light-premium d-flex align-items-center justify-content-center">
+                                        <i class="fas fa-image fs-1 text-secondary-premium"></i>
+                                    </div>
+                                {% endif %}
+                                
+                                <!-- Badges Premium -->
+                                {% for preco in imovel.precos.all %}
+                                    {% if forloop.first %}
+                                        {% if preco.finalidade == 'venda' %}
+                                            <span class="badge-finalidade">
+                                                <i class="fas fa-tag me-1"></i>Venda
+                                            </span>
+                                        {% elif preco.finalidade == 'aluguel' %}
+                                            <span class="badge-finalidade">
+                                                <i class="fas fa-key me-1"></i>Aluguel
+                                            </span>
+                                        {% elif preco.finalidade == 'temporada' %}
+                                            <span class="badge-finalidade">
+                                                <i class="fas fa-calendar-alt me-1"></i>Temporada
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            
+                            <div class="card-body p-3">
+                                <h6 class="card-title fw-bold mb-2">{{ imovel.titulo|truncatechars:40 }}</h6>
+                                
+                                <!-- Preços Premium -->
+                                {% if imovel.precos.all %}
+                                    {% with imovel.precos.all|first as primeiro_preco %}
+                                        <div class="price-highlight mb-2">
+                                            {% if primeiro_preco.finalidade == 'temporada' %}
+                                                R$ {{ primeiro_preco.valor|floatformat:0 }}/dia
+                                            {% else %}
+                                                R$ {{ primeiro_preco.valor|floatformat:0 }}
+                                            {% endif %}
+                                        </div>
+                                    {% endwith %}
+                                {% else %}
+                                    <div class="text-secondary-premium mb-2">Consulte valores</div>
+                                {% endif %}
+                                
+                                <!-- Características -->
+                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                    {% if imovel.area_util %}
+                                        <small class="badge characteristic-badge">{{ imovel.area_util|floatformat:0 }}m²</small>
+                                    {% endif %}
+                                    {% if imovel.quartos %}
+                                        <small class="badge characteristic-badge">{{ imovel.quartos }}q</small>
+                                    {% endif %}
+                                    {% if imovel.banheiros %}
+                                        <small class="badge characteristic-badge">{{ imovel.banheiros }}b</small>
+                                    {% endif %}
+                                    {% if imovel.vagas_garagem %}
+                                        <small class="badge characteristic-badge">{{ imovel.vagas_garagem }}v</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Localização -->
+                                <p class="card-text text-secondary-premium small mb-2">
+                                    <i class="fas fa-map-marker-alt me-1 text-premium"></i>
+                                    {{ imovel.bairro }}, {{ imovel.cidade }}
+                                </p>
+                                
+                                <!-- Badges extras -->
+                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                    {% if imovel.pet_friendly %}
+                                        <small class="badge" style="background-color: var(--azul-petroleo); color: white;">Pet OK</small>
+                                    {% endif %}
+                                    {% if imovel.mobilia != 'vazio' %}
+                                        <small class="badge badge-premium">{{ imovel.get_mobilia_display }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Botões Premium -->
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'core:detalhe_imovel' imovel.pk %}" 
+                                       class="btn btn-outline-primary btn-sm smooth-transition">
+                                        <i class="fas fa-eye me-1"></i>Ver Detalhes
+                                    </a>
+                                    <a href="https://wa.me/5511999999999?text=Interesse no imóvel: {{ imovel.titulo|urlencode }}" 
+                                       class="btn btn-whatsapp btn-sm smooth-transition" target="_blank">
+                                        <i class="fab fa-whatsapp me-1"></i>Contato Premium
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Paginação Premium -->
+                {% if page_obj.has_other_pages %}
+                <nav class="mt-5">
+                    <ul class="pagination pagination-premium justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% for key, value in filtros_aplicados.items %}{% if value %}&{{ key }}={{ value|urlencode }}{% endif %}{% endfor %}">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in filtros_aplicados.items %}{% if value %}&{{ key }}={{ value|urlencode }}{% endif %}{% endfor %}">
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        <li class="page-item active">
+                            <span class="page-link fw-bold">
+                                {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                            </span>
+                        </li>
+                        
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in filtros_aplicados.items %}{% if value %}&{{ key }}={{ value|urlencode }}{% endif %}{% endfor %}">
+                                    <i class="fas fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key, value in filtros_aplicados.items %}{% if value %}&{{ key }}={{ value|urlencode }}{% endif %}{% endfor %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+                
+            {% else %}
+                <!-- Estado vazio premium -->
+                <div class="empty-state">
+                    <div class="mb-4" style="color: var(--cinza-medio);">
+                        <i class="fas fa-search fs-1"></i>
+                    </div>
+                    <h4 class="text-secondary-premium fw-bold">Nenhum imóvel encontrado</h4>
+                    <p class="text-secondary-premium mb-4">Tente ajustar os filtros ou fazer uma nova busca para encontrar seu imóvel premium.</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="{% url 'core:lista_imoveis' %}" class="btn btn-primary smooth-transition">
+                            <i class="fas fa-refresh me-2"></i>Ver Todos os Imóveis
+                        </a>
+                        <a href="https://wa.me/5511999999999?text=Olá! Gostaria de ajuda para encontrar um imóvel premium." 
+                           class="btn btn-whatsapp smooth-transition" target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i>Ajuda Personalizada
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

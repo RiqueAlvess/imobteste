@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Imobiliária Premium{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Meta tags SEO -->
+    <meta name="description"
+        content="{% block description %}Encontre o imóvel dos seus sonhos. Casas, apartamentos, salas comerciais para venda, aluguel e temporada.{% endblock %}">
+    <meta name="keywords"
+        content="{% block keywords %}imóveis, casas, apartamentos, venda, aluguel, temporada{% endblock %}">
+
+    <!-- Favicon Premium -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23C8A866'/><path d='M30 65 L50 35 L70 65 Z' fill='%23D4AF37'/><circle cx='50' cy='50' r='8' fill='%230D0D0D'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23C8A866'/><path d='M30 65 L50 35 L70 65 Z' fill='%23D4AF37'/><circle cx='50' cy='50' r='8' fill='%230D0D0D'/></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Imobiliária Premium{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Encontre o imóvel dos seus sonhos{% endblock %}">
+    <meta property="og:type" content="website">
+
+    {% block extra_css %}{% endblock %}
+
+    <style>
+        :root {
+            --dourado-metalico: #C8A866;
+            --dourado-claro: #D4AF37;
+            --preto-profundo: #0D0D0D;
+            --branco-puro: #FFFFFF;
+            --cinza-claro: #F5F5F5;
+            --cinza-medio: #7A7A7A;
+            --azul-petroleo: #1E3A5F;
+        }
+
+        body {
+            color: var(--preto-profundo);
+            background-color: var(--branco-puro);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Logo Premium Personalizado */
+        .logo-premium {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--branco-puro);
+            box-shadow: 0 4px 12px rgba(200, 168, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .logo-premium:hover .logo-circle {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(200, 168, 102, 0.6);
+        }
+
+        .logo-icon {
+            color: var(--preto-profundo);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-title {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--dourado-claro);
+            margin: 0;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%) !important;
+            box-shadow: 0 2px 10px rgba(13, 13, 13, 0.3);
+            padding: 1rem 0;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--branco-puro) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--dourado-claro) !important;
+            transform: translateY(-1px);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 25px;
+            padding: 8px 20px;
+        }
+
+        .btn-whatsapp:hover {
+            background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            border: none;
+            color: var(--preto-profundo);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--dourado-claro) 0%, var(--dourado-metalico) 100%);
+            color: var(--preto-profundo);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 168, 102, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--dourado-metalico);
+            color: var(--dourado-metalico);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--dourado-metalico);
+            border-color: var(--dourado-metalico);
+            color: var(--preto-profundo);
+            transform: translateY(-2px);
+        }
+
+        .card-imovel {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-imovel:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .badge-finalidade {
+            font-size: 0.75rem;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            color: var(--preto-profundo);
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .preco-destaque {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .filtros-sidebar {
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+            border: 2px solid var(--dourado-metalico);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(200, 168, 102, 0.1);
+        }
+
+        .chip-filtro {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.2rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .chip-filtro:hover {
+            transform: scale(1.05);
+        }
+
+        .chip-filtro a {
+            color: var(--dourado-claro);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .foto-capa {
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .card-imovel:hover .foto-capa {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--preto-profundo) 0%, var(--azul-petroleo) 100%);
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .footer a {
+            color: var(--dourado-claro);
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--branco-puro);
+            text-decoration: none;
+        }
+
+        .bg-light-premium {
+            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        }
+
+        .text-premium {
+            color: var(--dourado-metalico);
+        }
+
+        .text-secondary-premium {
+            color: var(--cinza-medio);
+        }
+
+        .border-premium {
+            border-color: var(--dourado-metalico) !important;
+        }
+
+        /* Customização de formulários */
+        .form-control:focus {
+            border-color: var(--dourado-metalico);
+            box-shadow: 0 0 0 0.2rem rgba(200, 168, 102, 0.25);
+        }
+
+        .form-select:focus {
+            border-color: var(--dourado-metalico);
+            box-shadow: 0 0 0 0.2rem rgba(200, 168, 102, 0.25);
+        }
+
+        /* Hero section style */
+        .hero-section {
+            background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%);
+            color: var(--branco-puro);
+        }
+
+        /* Badges personalizados */
+        .badge-premium {
+            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            color: var(--preto-profundo);
+            font-weight: bold;
+        }
+
+        .badge-light {
+            background-color: var(--cinza-claro);
+            color: var(--preto-profundo);
+            border: 1px solid var(--dourado-metalico);
+        }
+
+        /* Animações suaves */
+        .smooth-transition {
+            transition: all 0.3s ease;
+        }
+
+        /* Loading states */
+        .loading-skeleton {
+            background: linear-gradient(90deg, var(--cinza-claro) 25%, var(--branco-puro) 50%, var(--cinza-claro) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .foto-capa {
+                height: 180px;
+            }
+
+            .logo-title {
+                font-size: 1.2rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.7rem;
+            }
+
+            .logo-container {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+            }
+
+            .logo-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-icon {
+                font-size: 1.4rem;
+            }
+
+            .preco-destaque {
+                font-size: 1.2rem;
+            }
+
+            .filtros-sidebar {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .foto-capa {
+                height: 160px;
+            }
+            
+            .card-imovel {
+                margin-bottom: 1rem;
+            }
+
+            .logo-text {
+                display: none;
+            }
+
+            .logo-container {
+                margin-right: 0;
+            }
+        }
+
+        /* Animação especial para o logo */
+        @keyframes logo-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo-circle:hover {
+            animation: logo-pulse 0.6s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Premium -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <!-- Logo Premium -->
+            <a class="logo-premium smooth-transition" href="{% url 'core:home' %}">
+                <div class="logo-container">
+                    <div class="logo-circle">
+                        <i class="fas fa-gem logo-icon"></i>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">Imobiliária Premium</div>
+                    <div class="logo-subtitle">Encontre seu sonho</div>
+                </div>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link smooth-transition" href="{% url 'core:home' %}">
+                            <i class="fas fa-home me-1"></i>Início
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smooth-transition" href="{% url 'core:lista_imoveis' %}">
+                            <i class="fas fa-search me-1"></i>Buscar Imóveis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smooth-transition" href="{% url 'core:lista_imoveis' %}?finalidade=venda">
+                            <i class="fas fa-tag me-1"></i>Comprar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smooth-transition" href="{% url 'core:lista_imoveis' %}?finalidade=aluguel">
+                            <i class="fas fa-key me-1"></i>Alugar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smooth-transition" href="{% url 'core:lista_imoveis' %}?finalidade=temporada">
+                            <i class="fas fa-calendar-alt me-1"></i>Temporada
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex">
+                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de mais informações sobre os imóveis premium."
+                        class="btn btn-whatsapp btn-sm smooth-transition" target="_blank">
+                        <i class="fab fa-whatsapp me-1"></i>Contato Premium
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer Premium -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="logo-container me-3">
+                            <div class="logo-circle" style="width: 60px; height: 60px;">
+                                <i class="fas fa-gem" style="color: var(--preto-profundo); font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="mb-1" style="color: var(--dourado-claro);">Imobiliária Premium</h5>
+                            <small style="opacity: 0.8;">Encontre seu sonho</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Encontre o imóvel dos seus sonhos com a qualidade e sofisticação que você merece.</p>
+                    <p class="mb-0">
+                        <i class="fas fa-phone me-2"></i>(11) 99999-9999<br>
+                        <i class="fas fa-envelope me-2"></i>contato@imobiliariapremium.com.br<br>
+                        <i class="fas fa-map-marker-alt me-2"></i>São Paulo - SP
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h6>Links Rápidos</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'core:home' %}" class="smooth-transition">
+                            <i class="fas fa-chevron-right me-1"></i>Início</a></li>
+                        <li><a href="{% url 'core:lista_imoveis' %}" class="smooth-transition">
+                            <i class="fas fa-chevron-right me-1"></i>Todos os Imóveis</a></li>
+                        <li><a href="{% url 'core:lista_imoveis' %}?finalidade=venda" class="smooth-transition">
+                            <i class="fas fa-chevron-right me-1"></i>Comprar</a></li>
+                        <li><a href="{% url 'core:lista_imoveis' %}?finalidade=aluguel" class="smooth-transition">
+                            <i class="fas fa-chevron-right me-1"></i>Alugar</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Siga-nos</h6>
+                    <div class="d-flex gap-3 mb-3">
+                        <a href="#" class="text-light fs-4 smooth-transition" title="Facebook">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a href="#" class="text-light fs-4 smooth-transition" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/5511999999999" class="text-light fs-4 smooth-transition" target="_blank" title="WhatsApp">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="#" class="text-light fs-4 smooth-transition" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Link para o Design do Canva -->
+                    <div class="mt-3">
+                        <small class="opacity-75">
+                            <i class="fas fa-palette me-1"></i>
+                            Design por 
+                            <a href="https://www.canva.com/design/DAGx48Yuh8Y/tbsRi9qJBAOSCL1r1gBGHA/view?utm_content=DAGx48Yuh8Y&utm_campaign=designshare&utm_medium=embeds&utm_source=link" 
+                               target="_blank" rel="noopener" class="text-decoration-none">
+                                <strong>Henrique Siqueira</strong>
+                            </a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">
+                        <i class="fas fa-gem me-1"></i>
+                        &copy; {% now "Y" %} Imobiliária Premium. Todos os direitos reservados.
+                        <small class="ms-3 opacity-75">
+                            Desenvolvido com <i class="fas fa-heart text-danger"></i> e tecnologia de ponta
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
+
+    <!-- Script Premium -->
+    <script>
+        // Adicionar efeitos premium no carregamento
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação de entrada suave
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+            
+            // Console log premium
+            console.log('%c🎨 Imobiliária Premium carregada com sucesso! 💎', 
+                       'color: #D4AF37; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 2px #C8A866;');
+            console.log('%cDesign premium ativado ✨', 
+                       'color: #C8A866; font-weight: bold; font-size: 12px;');
+            
+            // Preload de imagens críticas
+            const criticalImages = document.querySelectorAll('img[loading="lazy"]');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('loading-skeleton');
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+                
+                criticalImages.forEach(img => imageObserver.observe(img));
+            }
+        });
+        
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
