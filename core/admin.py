@@ -95,12 +95,12 @@ class ClienteAdmin(admin.ModelAdmin):
     def origem_badge(self, obj):
         icons = {
             'site': 'fas fa-globe',
-            'whatsapp': 'fab fa-whatsapp', 
+            'whatsapp': 'fas fa-phone', 
             'telefone': 'fas fa-phone',
             'email': 'fas fa-envelope',
             'indicacao': 'fas fa-user-friends',
-            'facebook': 'fab fa-facebook',
-            'instagram': 'fab fa-instagram',
+            'facebook': 'fas fa-share-alt',
+            'instagram': 'fas fa-share-alt',
             'placa': 'fas fa-sign',
             'outro': 'fas fa-question'
         }
@@ -319,7 +319,6 @@ class ImovelAdmin(admin.ModelAdmin):
 
 
 # Personalização global do Admin
-admin.site.site_header = "Imobiliária Premium - Administração"
-admin.site.site_title = "Imobiliária Admin"
+admin.site.site_header = "DS Imóveis - Administração"
+admin.site.site_title = "DS Imóveis Admin"
 admin.site.index_title = "Painel de Controle"
-

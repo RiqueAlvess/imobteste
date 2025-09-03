@@ -87,18 +87,18 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ===============================
-# 🎨 CONFIGURAÇÕES JAZZMIN PREMIUM
+# 🎨 CONFIGURAÇÕES JAZZMIN DS IMÓVEIS
 # ===============================
 
 JAZZMIN_SETTINGS = {
-    # Identidade Premium
-    "site_title": "Imobiliária Premium - Admin",
-    "site_header": "Imobiliária Premium",
-    "site_brand": "Premium Admin",
+    # Identidade da Empresa
+    "site_title": "DS Imóveis - Admin",
+    "site_header": "DS Imóveis",
+    "site_brand": "DS Admin",
     "site_logo": None,
     "login_logo": None,
-    "welcome_sign": "Bem-vindo ao Painel Premium",
-    "copyright": "Imobiliária Premium © 2025 - Todos os direitos reservados",
+    "welcome_sign": "Bem-vindo ao Painel DS Imóveis",
+    "copyright": "DS Imóveis © 2025 - Todos os direitos reservados",
     
     # Busca
     "search_model": ["core.Imovel", "core.Proprietario", "core.Cliente"],
@@ -106,9 +106,9 @@ JAZZMIN_SETTINGS = {
     
     # Menu Superior
     "topmenu_links": [
-        {"name": "🏠 Home Admin", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "💎 Ver Site", "url": "/", "new_window": True},
-        {"name": "📊 Relatórios", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Dashboard", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Ver Site", "url": "/", "new_window": True},
+        {"name": "Relatórios", "url": "admin:index", "permissions": ["auth.view_user"]},
     ],
     
     # Menu do Usuário
@@ -118,7 +118,7 @@ JAZZMIN_SETTINGS = {
     ],
     
     # =====================================
-    # 🎨 ÍCONES PREMIUM POR MODELO
+    # 🎨 ÍCONES POR MODELO
     # =====================================
     "icons": {
         # Sistema de Autenticação
@@ -126,15 +126,15 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user-shield",
         "auth.Group": "fas fa-users",
         
-        # Modelos Principais (Premium)
-        "core.imovel": "fas fa-gem",
+        # Modelos Principais
+        "core.imovel": "fas fa-home",
         "core.proprietario": "fas fa-user-tie", 
         "core.cliente": "fas fa-handshake",
         
         # Modelos Auxiliares
-        "core.fotoimovel": "fas fa-camera-retro",
-        "core.precoporfinalidade": "fas fa-coins",
-        "core.infracondominio": "fas fa-swimming-pool",
+        "core.fotoimovel": "fas fa-camera",
+        "core.precoporfinalidade": "fas fa-dollar-sign",
+        "core.infracondominio": "fas fa-building",
     },
     
     # Ícones padrão
@@ -162,7 +162,7 @@ JAZZMIN_SETTINGS = {
     },
     
     # =====================================
-    # 🎨 TEMA E CORES PREMIUM
+    # 🎨 TEMA E CORES
     # =====================================
     
     # Tema Principal
@@ -173,15 +173,15 @@ JAZZMIN_SETTINGS = {
     "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
-    "brand_colour": "navbar-dark",  # Cor da marca
-    "accent": "accent-warning",     # Acento dourado
-    "navbar": "navbar-dark bg-dark", # Navbar escura premium
+    "brand_colour": "navbar-dark",
+    "accent": "accent-warning",
+    "navbar": "navbar-dark bg-dark",
     "no_navbar_border": False,
     "navbar_fixed": False,
     "layout_boxed": False,
     "footer_fixed": False,
     "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-warning",  # Sidebar escura com acento dourado
+    "sidebar": "sidebar-dark-warning",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": False,
@@ -209,7 +209,7 @@ JAZZMIN_SETTINGS = {
     # Customizar labels dos aplicativos
     "custom_links": {
         "core": [{
-            "name": "📈 Dashboard Premium", 
+            "name": "Dashboard", 
             "url": "admin:index", 
             "icon": "fas fa-chart-line",
             "permissions": ["core.view_imovel"]
@@ -221,7 +221,7 @@ JAZZMIN_SETTINGS = {
 }
 
 # =========================================
-# 🎨 JAZZMIN UI TWEAKS (CORES PREMIUM)
+# 🎨 JAZZMIN UI TWEAKS (CORES CORPORATIVAS)
 # =========================================
 
 JAZZMIN_UI_TWEAKS = {
@@ -232,10 +232,10 @@ JAZZMIN_UI_TWEAKS = {
     "brand_small_text": False,
     "brand_colour": "navbar-dark",
     
-    # Cores de acento (Dourado Premium)
+    # Cores de acento
     "accent": "accent-warning",
     
-    # Navbar (Azul Petróleo/Preto)
+    # Navbar
     "navbar": "navbar-dark bg-dark",
     "no_navbar_border": False,
     "navbar_fixed": False,
@@ -245,7 +245,7 @@ JAZZMIN_UI_TWEAKS = {
     "footer_fixed": False,
     "sidebar_fixed": False,
     
-    # Sidebar (Premium com acento dourado)
+    # Sidebar
     "sidebar": "sidebar-dark-warning",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
@@ -259,137 +259,137 @@ JAZZMIN_UI_TWEAKS = {
     "dark_mode_theme": None,
     
     # =====================================
-    # 🎨 BOTÕES PREMIUM PERSONALIZADOS
+    # 🎨 BOTÕES CORPORATIVOS
     # =====================================
     "button_classes": {
-        "primary": "btn-warning",      # Dourado para ações principais
-        "secondary": "btn-secondary",  # Cinza para secundárias
-        "info": "btn-info",           # Azul para informações
-        "warning": "btn-warning",     # Dourado para avisos
-        "danger": "btn-danger",       # Vermelho para exclusões
-        "success": "btn-success"      # Verde para sucessos
+        "primary": "btn-warning",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
     },
     
     # =====================================
-    # 🎨 CUSTOM CSS PREMIUM (INLINE)
+    # 🎨 CUSTOM CSS CORPORATIVO
     # =====================================
     "custom_css": """
-        /* Paleta de cores premium */
+        /* Paleta de cores corporativa */
         :root {
-            --premium-gold: #C8A866;
-            --premium-gold-light: #D4AF37;
-            --premium-dark: #0D0D0D;
-            --premium-blue: #1E3A5F;
+            --ds-gold: #C8A866;
+            --ds-gold-light: #D4AF37;
+            --ds-dark: #0D0D0D;
+            --ds-blue: #1E3A5F;
         }
         
-        /* Header premium */
+        /* Header corporativo */
         .main-header {
-            background: linear-gradient(135deg, var(--premium-blue) 0%, var(--premium-dark) 100%) !important;
-            border-bottom: 3px solid var(--premium-gold) !important;
+            background-color: var(--ds-blue) !important;
+            border-bottom: 3px solid var(--ds-gold) !important;
         }
         
-        /* Brand premium */
+        /* Brand corporativo */
         .navbar-brand {
-            color: var(--premium-gold-light) !important;
+            color: var(--ds-gold-light) !important;
             font-weight: bold !important;
         }
         
-        /* Sidebar premium */
+        /* Sidebar corporativo */
         .main-sidebar {
-            background: linear-gradient(180deg, var(--premium-dark) 0%, var(--premium-blue) 100%) !important;
+            background-color: var(--ds-dark) !important;
         }
         
-        /* Botões premium */
+        /* Botões corporativos */
         .btn-warning {
-            background: linear-gradient(135deg, var(--premium-gold) 0%, var(--premium-gold-light) 100%) !important;
-            border-color: var(--premium-gold) !important;
-            color: var(--premium-dark) !important;
+            background-color: var(--ds-gold) !important;
+            border-color: var(--ds-gold) !important;
+            color: var(--ds-dark) !important;
             font-weight: 600 !important;
         }
         
         .btn-warning:hover {
-            background: linear-gradient(135deg, var(--premium-gold-light) 0%, var(--premium-gold) 100%) !important;
-            border-color: var(--premium-gold-light) !important;
-            color: var(--premium-dark) !important;
+            background-color: var(--ds-gold-light) !important;
+            border-color: var(--ds-gold-light) !important;
+            color: var(--ds-dark) !important;
             transform: translateY(-1px) !important;
             box-shadow: 0 4px 8px rgba(200, 168, 102, 0.3) !important;
         }
         
-        /* Cards premium */
+        /* Cards corporativos */
         .card {
             border: 1px solid rgba(200, 168, 102, 0.2) !important;
             border-radius: 8px !important;
         }
         
         .card-header {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
-            border-bottom: 2px solid var(--premium-gold) !important;
-            color: var(--premium-blue) !important;
+            background-color: #f8f9fa !important;
+            border-bottom: 2px solid var(--ds-gold) !important;
+            color: var(--ds-blue) !important;
             font-weight: bold !important;
         }
         
-        /* Links premium */
+        /* Links corporativos */
         a {
-            color: var(--premium-blue) !important;
+            color: var(--ds-blue) !important;
         }
         
         a:hover {
-            color: var(--premium-gold) !important;
+            color: var(--ds-gold) !important;
         }
         
-        /* Tabelas premium */
+        /* Tabelas corporativas */
         .table th {
             background-color: #f8f9fa !important;
-            color: var(--premium-blue) !important;
+            color: var(--ds-blue) !important;
             font-weight: 600 !important;
-            border-bottom: 2px solid var(--premium-gold) !important;
+            border-bottom: 2px solid var(--ds-gold) !important;
         }
         
-        /* Badges premium */
+        /* Badges corporativos */
         .badge-success {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+            background-color: #28a745 !important;
         }
         
         .badge-warning {
-            background: linear-gradient(135deg, var(--premium-gold) 0%, var(--premium-gold-light) 100%) !important;
-            color: var(--premium-dark) !important;
+            background-color: var(--ds-gold) !important;
+            color: var(--ds-dark) !important;
         }
         
-        /* Formulários premium */
+        /* Formulários corporativos */
         .form-control:focus {
-            border-color: var(--premium-gold) !important;
+            border-color: var(--ds-gold) !important;
             box-shadow: 0 0 0 0.2rem rgba(200, 168, 102, 0.25) !important;
         }
         
-        /* Menu sidebar premium */
+        /* Menu sidebar corporativo */
         .nav-sidebar .nav-link {
             color: rgba(255, 255, 255, 0.9) !important;
         }
         
         .nav-sidebar .nav-link:hover {
             background-color: rgba(200, 168, 102, 0.2) !important;
-            color: var(--premium-gold-light) !important;
+            color: var(--ds-gold-light) !important;
         }
         
         .nav-sidebar .nav-link.active {
-            background: linear-gradient(135deg, var(--premium-gold) 0%, var(--premium-gold-light) 100%) !important;
-            color: var(--premium-dark) !important;
+            background-color: var(--ds-gold) !important;
+            color: var(--ds-dark) !important;
             font-weight: bold !important;
         }
         
-        /* Footer premium */
+        /* Footer corporativo */
         .main-footer {
-            background: var(--premium-dark) !important;
-            color: var(--premium-gold) !important;
-            border-top: 2px solid var(--premium-gold) !important;
+            background-color: var(--ds-dark) !important;
+            color: var(--ds-gold) !important;
+            border-top: 2px solid var(--ds-gold) !important;
         }
         
-        /* Animations premium */
+        /* Animations corporativas */
         .btn, .card, .form-control {
             transition: all 0.3s ease !important;
         }
         
-        /* Dashboard cards premium */
+        /* Dashboard cards corporativo */
         .info-box {
             border-radius: 8px !important;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
@@ -397,19 +397,19 @@ JAZZMIN_UI_TWEAKS = {
         }
         
         .info-box-icon {
-            background: linear-gradient(135deg, var(--premium-gold) 0%, var(--premium-gold-light) 100%) !important;
-            color: var(--premium-dark) !important;
+            background-color: var(--ds-gold) !important;
+            color: var(--ds-dark) !important;
         }
     """,
     
-    # JavaScript personalizado premium
+    # JavaScript corporativo
     "custom_js": """
-        // Adicionar efeitos premium
+        // Adicionar efeitos corporativos
         document.addEventListener('DOMContentLoaded', function() {
-            // Adicionar ícone premium no título
+            // Adicionar ícone no título
             const brandElement = document.querySelector('.navbar-brand');
             if (brandElement && !brandElement.querySelector('.fas')) {
-                brandElement.innerHTML = '<i class="fas fa-gem me-2"></i>' + brandElement.innerHTML;
+                brandElement.innerHTML = '<i class="fas fa-home me-2"></i>' + brandElement.innerHTML;
             }
             
             // Smooth animations para botões
@@ -422,8 +422,8 @@ JAZZMIN_UI_TWEAKS = {
                 });
             });
             
-            // Console log premium
-            console.log('🎨 Imobiliária Premium Admin carregado com sucesso! 💎');
+            // Console log corporativo
+            console.log('🏠 DS Imóveis Admin carregado com sucesso!');
         });
     """
 }
@@ -443,20 +443,20 @@ CACHES = {
     }
 }
 
-# Configurações de logging premium
+# Configurações de logging corporativo
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'premium': {
-            'format': '💎 [{levelname}] {asctime} - {name}: {message}',
+        'corporativo': {
+            'format': '🏠 [{levelname}] {asctime} - {name}: {message}',
             'style': '{',
         },
     },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'premium',
+            'formatter': 'corporativo',
         },
     },
     'root': {

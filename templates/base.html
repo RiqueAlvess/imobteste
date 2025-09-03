@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Imobiliária Premium{% endblock %}</title>
+    <title>{% block title %}DS Imóveis{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,12 +17,11 @@
     <meta name="keywords"
         content="{% block keywords %}imóveis, casas, apartamentos, venda, aluguel, temporada{% endblock %}">
 
-    <!-- Favicon Premium -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23C8A866'/><path d='M30 65 L50 35 L70 65 Z' fill='%23D4AF37'/><circle cx='50' cy='50' r='8' fill='%230D0D0D'/></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23C8A866'/><path d='M30 65 L50 35 L70 65 Z' fill='%23D4AF37'/><circle cx='50' cy='50' r='8' fill='%230D0D0D'/></svg>">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="{% block og_title %}Imobiliária Premium{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}DS Imóveis{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Encontre o imóvel dos seus sonhos{% endblock %}">
     <meta property="og:type" content="website">
 
@@ -45,43 +44,23 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Logo Premium Personalizado */
-        .logo-premium {
+        /* Logo DS Imóveis */
+        .logo-container {
             display: flex;
             align-items: center;
             text-decoration: none;
             color: inherit;
         }
 
-        .logo-container {
-            position: relative;
-            width: 50px;
+        .logo-image {
             height: 50px;
+            width: auto;
             margin-right: 15px;
-        }
-
-        .logo-circle {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 3px solid var(--branco-puro);
-            box-shadow: 0 4px 12px rgba(200, 168, 102, 0.4);
             transition: all 0.3s ease;
         }
 
-        .logo-premium:hover .logo-circle {
+        .logo-container:hover .logo-image {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(200, 168, 102, 0.6);
-        }
-
-        .logo-icon {
-            color: var(--preto-profundo);
-            font-size: 1.8rem;
-            font-weight: bold;
         }
 
         .logo-text {
@@ -106,7 +85,7 @@
         }
 
         .navbar {
-            background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%) !important;
+            background-color: var(--azul-petroleo) !important;
             box-shadow: 0 2px 10px rgba(13, 13, 13, 0.3);
             padding: 1rem 0;
         }
@@ -124,7 +103,7 @@
         }
 
         .btn-whatsapp {
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            background-color: #25d366;
             border: none;
             color: white;
             font-weight: 600;
@@ -134,14 +113,14 @@
         }
 
         .btn-whatsapp:hover {
-            background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+            background-color: #128c7e;
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            background-color: var(--dourado-metalico);
             border: none;
             color: var(--preto-profundo);
             font-weight: 600;
@@ -150,7 +129,7 @@
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, var(--dourado-claro) 0%, var(--dourado-metalico) 100%);
+            background-color: var(--dourado-claro);
             color: var(--preto-profundo);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(200, 168, 102, 0.4);
@@ -190,7 +169,7 @@
             top: 15px;
             left: 15px;
             z-index: 10;
-            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+            background-color: var(--dourado-metalico);
             color: var(--preto-profundo);
             font-weight: bold;
             padding: 6px 12px;
@@ -200,14 +179,11 @@
         .preco-destaque {
             font-size: 1.4rem;
             font-weight: bold;
-            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--dourado-metalico);
         }
 
         .filtros-sidebar {
-            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+            background-color: var(--cinza-claro);
             border: 2px solid var(--dourado-metalico);
             border-radius: 16px;
             padding: 2rem;
@@ -216,7 +192,7 @@
 
         .chip-filtro {
             display: inline-block;
-            background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%);
+            background-color: var(--azul-petroleo);
             color: white;
             padding: 6px 12px;
             border-radius: 20px;
@@ -248,7 +224,7 @@
         }
 
         .footer {
-            background: linear-gradient(135deg, var(--preto-profundo) 0%, var(--azul-petroleo) 100%);
+            background-color: var(--preto-profundo);
             color: white;
             margin-top: 4rem;
         }
@@ -263,19 +239,19 @@
             text-decoration: none;
         }
 
-        .bg-light-premium {
-            background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--branco-puro) 100%);
+        .bg-light-custom {
+            background-color: var(--cinza-claro);
         }
 
-        .text-premium {
+        .text-primary-custom {
             color: var(--dourado-metalico);
         }
 
-        .text-secondary-premium {
+        .text-secondary-custom {
             color: var(--cinza-medio);
         }
 
-        .border-premium {
+        .border-primary-custom {
             border-color: var(--dourado-metalico) !important;
         }
 
@@ -292,13 +268,13 @@
 
         /* Hero section style */
         .hero-section {
-            background: linear-gradient(135deg, var(--azul-petroleo) 0%, var(--preto-profundo) 100%);
+            background-color: var(--azul-petroleo);
             color: var(--branco-puro);
         }
 
         /* Badges personalizados */
-        .badge-premium {
-            background: linear-gradient(135deg, var(--dourado-metalico) 0%, var(--dourado-claro) 100%);
+        .badge-custom {
+            background-color: var(--dourado-metalico);
             color: var(--preto-profundo);
             font-weight: bold;
         }
@@ -312,18 +288,6 @@
         /* Animações suaves */
         .smooth-transition {
             transition: all 0.3s ease;
-        }
-
-        /* Loading states */
-        .loading-skeleton {
-            background: linear-gradient(90deg, var(--cinza-claro) 25%, var(--branco-puro) 50%, var(--cinza-claro) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
         }
 
         /* Responsividade */
@@ -340,19 +304,9 @@
                 font-size: 0.7rem;
             }
 
-            .logo-container {
-                width: 40px;
+            .logo-image {
                 height: 40px;
                 margin-right: 12px;
-            }
-
-            .logo-circle {
-                width: 40px;
-                height: 40px;
-            }
-
-            .logo-icon {
-                font-size: 1.4rem;
             }
 
             .preco-destaque {
@@ -377,37 +331,23 @@
                 display: none;
             }
 
-            .logo-container {
+            .logo-image {
                 margin-right: 0;
             }
-        }
-
-        /* Animação especial para o logo */
-        @keyframes logo-pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .logo-circle:hover {
-            animation: logo-pulse 0.6s ease-in-out;
         }
     </style>
 </head>
 
 <body>
-    <!-- Navbar Premium -->
+    <!-- Navbar DS Imóveis -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <!-- Logo Premium -->
-            <a class="logo-premium smooth-transition" href="{% url 'core:home' %}">
-                <div class="logo-container">
-                    <div class="logo-circle">
-                        <i class="fas fa-gem logo-icon"></i>
-                    </div>
-                </div>
+            <!-- Logo DS Imóveis -->
+            <a class="logo-container smooth-transition" href="{% url 'core:home' %}">
+                <img src="https://www.canva.com/design/DAGx48Yuh8Y/tbsRi9qJBAOSCL1r1gBGHA/view" 
+                     alt="DS Imóveis" class="logo-image">
                 <div class="logo-text">
-                    <div class="logo-title">Imobiliária Premium</div>
+                    <div class="logo-title">DS Imóveis</div>
                     <div class="logo-subtitle">Encontre seu sonho</div>
                 </div>
             </a>
@@ -446,9 +386,9 @@
                 </ul>
 
                 <div class="d-flex">
-                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de mais informações sobre os imóveis premium."
+                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de mais informações sobre os imóveis."
                         class="btn btn-whatsapp btn-sm smooth-transition" target="_blank">
-                        <i class="fab fa-whatsapp me-1"></i>Contato Premium
+                        <i class="fab fa-whatsapp me-1"></i>Contato
                     </a>
                 </div>
             </div>
@@ -460,26 +400,23 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer Premium -->
+    <!-- Footer DS Imóveis -->
     <footer class="footer py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="d-flex align-items-center mb-3">
-                        <div class="logo-container me-3">
-                            <div class="logo-circle" style="width: 60px; height: 60px;">
-                                <i class="fas fa-gem" style="color: var(--preto-profundo); font-size: 2rem;"></i>
-                            </div>
-                        </div>
+                        <img src="https://www.canva.com/design/DAGx48Yuh8Y/tbsRi9qJBAOSCL1r1gBGHA/view" 
+                             alt="DS Imóveis" style="height: 60px; width: auto; margin-right: 1rem;">
                         <div>
-                            <h5 class="mb-1" style="color: var(--dourado-claro);">Imobiliária Premium</h5>
+                            <h5 class="mb-1" style="color: var(--dourado-claro);">DS Imóveis</h5>
                             <small style="opacity: 0.8;">Encontre seu sonho</small>
                         </div>
                     </div>
-                    <p class="mb-2">Encontre o imóvel dos seus sonhos com a qualidade e sofisticação que você merece.</p>
+                    <p class="mb-2">Encontre o imóvel dos seus sonhos com a qualidade e confiança que você merece.</p>
                     <p class="mb-0">
                         <i class="fas fa-phone me-2"></i>(11) 99999-9999<br>
-                        <i class="fas fa-envelope me-2"></i>contato@imobiliariapremium.com.br<br>
+                        <i class="fas fa-envelope me-2"></i>contato@dsimoveis.com.br<br>
                         <i class="fas fa-map-marker-alt me-2"></i>São Paulo - SP
                     </p>
                 </div>
@@ -530,8 +467,8 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <p class="mb-0">
-                        <i class="fas fa-gem me-1"></i>
-                        &copy; {% now "Y" %} Imobiliária Premium. Todos os direitos reservados.
+                        <i class="fas fa-home me-1"></i>
+                        &copy; {% now "Y" %} DS Imóveis. Todos os direitos reservados.
                         <small class="ms-3 opacity-75">
                             Desenvolvido com <i class="fas fa-heart text-danger"></i> e tecnologia de ponta
                         </small>
@@ -546,9 +483,9 @@
 
     {% block extra_js %}{% endblock %}
 
-    <!-- Script Premium -->
+    <!-- Script DS Imóveis -->
     <script>
-        // Adicionar efeitos premium no carregamento
+        // Adicionar efeitos no carregamento
         document.addEventListener('DOMContentLoaded', function() {
             // Animação de entrada suave
             document.body.style.opacity = '0';
@@ -558,28 +495,9 @@
                 document.body.style.opacity = '1';
             }, 100);
             
-            // Console log premium
-            console.log('%c🎨 Imobiliária Premium carregada com sucesso! 💎', 
-                       'color: #D4AF37; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 2px #C8A866;');
-            console.log('%cDesign premium ativado ✨', 
-                       'color: #C8A866; font-weight: bold; font-size: 12px;');
-            
-            // Preload de imagens críticas
-            const criticalImages = document.querySelectorAll('img[loading="lazy"]');
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            img.src = img.dataset.src;
-                            img.classList.remove('loading-skeleton');
-                            observer.unobserve(img);
-                        }
-                    });
-                });
-                
-                criticalImages.forEach(img => imageObserver.observe(img));
-            }
+            // Console log
+            console.log('%cDS Imóveis carregada com sucesso! 🏠', 
+                       'color: #D4AF37; font-weight: bold; font-size: 16px;');
         });
         
         // Smooth scroll para links internos
