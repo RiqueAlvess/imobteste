@@ -113,10 +113,16 @@ class ClienteAdmin(admin.ModelAdmin):
     
     def orcamento_formatado(self, obj):
         if obj.orcamento_max:
-            return format_html(
-                '<span style="color: #1E3A5F; font-weight: bold;">R$ {:,.0f}</span>',
-                obj.orcamento_max
-            )
+            try:
+                # Converter explicitamente para float e formatar
+                valor = float(obj.orcamento_max)
+                valor_formatado = f"R$ {valor:,.0f}"
+                return format_html(
+                    '<span style="color: #1E3A5F; font-weight: bold;">{}</span>',
+                    valor_formatado
+                )
+            except (ValueError, TypeError):
+                return format_html('<span style="color: #dc3545;">Valor inválido</span>')
         return format_html('<span style="color: #7A7A7A;">-</span>')
     orcamento_formatado.short_description = 'Orçamento'
     
@@ -269,10 +275,14 @@ class ImovelAdmin(admin.ModelAdmin):
         
         resumo = []
         for preco in precos[:2]:  # Mostrar no máximo 2 preços
-            if preco.finalidade == 'temporada':
-                resumo.append(f"R$ {preco.valor:,.0f}/dia")
-            else:
-                resumo.append(f"R$ {preco.valor:,.0f}")
+            try:
+                valor = float(preco.valor)
+                if preco.finalidade == 'temporada':
+                    resumo.append(f"R$ {valor:,.0f}/dia")
+                else:
+                    resumo.append(f"R$ {valor:,.0f}")
+            except (ValueError, TypeError):
+                resumo.append("Valor inválido")
         
         result = ' | '.join(resumo)
         if precos.count() > 2:
